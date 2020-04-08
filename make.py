@@ -32,12 +32,10 @@ h1 {
 """
 
 # Functions
-def list_strip (lst):
-    return [x.strip() for x in lst]
 def lines (text):
     return text.strip().split('\n')
 def pair (line):
-    return list_strip(line.split(':', 1))
+    return [x.strip() for x in line.split(':', 1)]
 def parse (text):
     return [pair(x) for x in lines(text)]
 def k(pair): return pair[0]
