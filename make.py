@@ -2,34 +2,55 @@ from os import listdir
 # Constants
 LIST_DIR = 'LIST'
 SITE_DIR = 'site'
-foot = '</body></html>'
-style = """body {
-    max-width:1000px;
-    margin:0 auto;
-    font-size:17px;
-    line-height:2;
+style = """
+body {
+max-width:1000px;
+margin:0 auto;
+font-size:17px;
+line-height:2;
+padding:2em 0;
 }
 h1 {
-    font-weight:normal;
-    margin:0;
-    padding:0 .5em;
+font-weight:normal;
+margin:0;
+padding:0 .5em 1em;
 }
 .entry a {
-    color:#06F;
-    text-decoration:none;
-    font-size:1.6em;
+color:#333;
+text-decoration:none;
+font-size:1.2em;
 }
 .entry a:hover {
-    text-decoration:underline;
+border-bottom:0;
 }
 .entry {
-    padding:.5em;
-    color:#333;
+padding:.3em .5em;
+color:#333;
 }
 .entry p {
-    margin:0
+margin:0
+}
+.ffbtn {
+background:none;
+border:0;
+outline:0;
+padding:1em 1em;
+color:#333;
+letter-spacing:2px;
+}
+.ffbtn:hover {
+opacity:.6;
 }
 """
+script = """
+document.querySelectorAll(".ffbtn").forEach(function (o) {
+o.addEventListener("click", function () {
+const ff = o.parentNode.parentNode.querySelector(".ff");
+ff.style.display = ff.style.display == "none" ? "" : "none";
+});
+});
+"""
+foot = '<script>' + script + '</script></body></html>'
 
 # Functions
 def lines (text):
@@ -74,14 +95,16 @@ for lang in listdir(LIST_DIR):
         href = assoc(lst, 'نیشانی')
         link = ''
         if name and href:
-            link = '<p>' + kurdish_numbers(str(i)) + \
-                '. <a href="' + v(href) + '">' + v(name) + '</a></p>'
-        body += '<div class="entry">' + link
+            link = kurdish_numbers(str(i)) + \
+                '. <a href="' + v(href) + '">' + v(name) + '</a>'
+        body += '<div class="entry"><p>' + link + \
+            '<button type="button" class="ffbtn">&bull;&bull;&bull;</button></p>' + \
+            '<div class="ff" style="display:none">'
         for p in lst:
             if k(p) == 'ناو': continue
             if k(p) == 'نیشانی': continue
             body += '<p>' + k(p) + ': ' + v(p) + '</p>'
-        body += '</div>'
+        body += '</div></div>'
     with open(SITE_DIR + '/list.' + lang + '.html', 'w') as f:
         f.write(head+body+foot)
     print(lang, 'done')
