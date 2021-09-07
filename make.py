@@ -88,13 +88,16 @@ def pair(line):
 def parse(text):
         return [pair(x) for x in lines(text)]
 
-def k(pair): return pair[0]
+def k(pair):
+        return pair[0]
 
-def v(pair): return pair[1]
+def v(pair):
+        return pair[1]
 
 def assoc(lst, key):
         for x in lst:
-                if key == k(x): return x
+                if key == k(x):
+                        return x
 
 # Functions: Misc.
 def kurdish_numbers(str):
@@ -106,17 +109,15 @@ def kurdish_numbers(str):
 
 # Constants
 LIST_DIR = 'LIST'
-FOOT = get_foot(get_script())
-STYLE = get_style()
+
 LANG = 'ckb'
 DIR = 'rtl'
-
-# Run
-
-# head
+STYLE = get_style()
+SCRIPT = get_script()
 HEAD = get_head(DIR, LANG, STYLE)
+FOOT = get_foot(SCRIPT)
 
-# body
+# Body
 body = ''
 i = 0
 filelist = listdir(LIST_DIR)
@@ -132,7 +133,7 @@ for fname in filelist:
 
                 if name and href:
                         link = f'''
-                        <a href="../{fpath}"><small>[TXT]</small></a>
+                        <a href="{fpath}"><small>[TXT]</small></a>
                         {kurdish_numbers(fname)}. <a href="{v(href)}"
                         >{v(name)}</a>
                         '''
@@ -145,7 +146,7 @@ for fname in filelist:
                 
                 for p in lst:
                         key = k(p)
-                        if key == 'ناو':
+                        if key == 'ناو' or key == 'نیشانی':
                                 continue
                         body += f'<li>{key}: {v(p)}</li>'
 
