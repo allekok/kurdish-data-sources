@@ -70,6 +70,24 @@ def get_style():
         li {
         word-wrap:break-word;
         }
+        @media (prefers-color-scheme: dark) {
+        body {
+        background:#000;
+        color:#FFF;
+        }
+        .entry a {
+        color:#EEE;
+        }
+        .entry {
+        color:#EEE;
+        }
+        .entry:nth-child(odd) {
+        background:#333;
+        }
+        .ffbtn {
+        color:#EEE;
+        }
+        }
         '''
 
 def get_script():
